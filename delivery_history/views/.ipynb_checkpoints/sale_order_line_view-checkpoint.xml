@@ -2,7 +2,7 @@
   <data>
       <!-- Sale Order Line -->
       <record id="view_order_line_tree_inherit_2" model="ir.ui.view">
-            <field name="name">sale.order.line.tree.inherit</field>
+            <field name="name">sale.order.line.tree.inherit.button.delivery</field>
             <field name="model">sale.order.line</field>
             <field name="inherit_id" ref="egymentors_purchase_fx.view_order_line_tree_inherit"/>
             <field name="arch" type="xml">
