@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale_management','stock','egymentors_purchase_fx'],
+    'depends': ['base','sale_management','stock','egymentors_purchase_fx','sale'],
 
     # always loaded
     'data': [
