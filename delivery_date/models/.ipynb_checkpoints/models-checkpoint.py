@@ -7,6 +7,7 @@ class Mo(models.Model):
     _inherit = 'mrp.production'
     
     date_deadline = fields.Date(string='Deadline',store=True,readonly=True,related='sale_line_id.line_delivery_date')
+    date_planned_finished = fields.Date(string='Planned EndDate',store=True,readonly=True,related='sale_line_id.line_delivery_date')
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -26,7 +27,7 @@ class SaleOrder(models.Model):
         self._action_confirm()
         if self.env.user.has_group('sale.group_auto_done_setting'):
             self.action_done()
-        #mentors start
+        #Mentors start
         notes = self.note
 #        # adding customer name and phone and terms to purchase from sales
         purchase_orders = self.sudo().env['purchase.order'].search([('origin','=',self.name)])
@@ -54,6 +55,8 @@ class SaleOrder(models.Model):
                         mo.notes = notes
                         if not(mo.date_deadline):
                             mo.date_deadline = self.date_order
+                            mo.date_planned_finished = self.date_order
+                            
                 self.add_delivery(purchase_order)
                 
             
@@ -63,10 +66,9 @@ class SaleOrder(models.Model):
             for mo in mos:
                 if not(mo.date_deadline):
                     mo.date_deadline = self.date_order
+                    mo.date_planned_finished = self.date_order
                     
-                
-
-        #mentors end
+        #Mentors end
         return True
     
     
