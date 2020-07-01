@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+    <record id="sale_order_inherit12" model="ir.ui.view">
+        <field name="name">sale.order.inherit12</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <form>
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+
+  </data>
+</odoo>
