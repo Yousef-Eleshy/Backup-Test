@@ -1,7 +1,6 @@
 <odoo>
   <data>
       <!-- Sale Order Line -->
-      <!--
       <record id="view_order_line_tree_inherit_button_delivery" model="ir.ui.view">
             <field name="name">sale.order.line.tree.inherit.button.delivery</field>
             <field name="model">sale.order.line</field>
@@ -9,15 +8,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_delivery_date']" position="after">
                     <button type="object"
-                            id="action_view_delivered_per_line"
                             name="action_view_delivered_per_line"
                             string="Delivery History"
                             style="color:green"
-                            icon="fa-circle"/>
+                            attrs="{'invisible': [('line_delivery_date', '=', False)]}"
+                            icon="fa-truck-moving"/>
                 </xpath>
             </field>
         </record>
--->
   </data>
 </odoo>
 
