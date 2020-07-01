@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError, RedirectWarning, UserError
 class Mo(models.Model):
     _inherit = 'mrp.production'
     
-#     date_deadline = fields.Date(string='Deadline',store=True,readonly=True,related='sale_line_id.line_delivery_date')
+    date_deadline = fields.Date(string='Deadline',store=True,readonly=True,related='sale_line_id.line_delivery_date')
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -49,12 +49,22 @@ class SaleOrder(models.Model):
                         delivery.branch_customer_name = self.partner_id['name']
                         delivery.branch_customer_phone = self.partner_id['mobile']
 #           adding terms to mo
-                    mo = self.sudo().env['mrp.production'].search([('origin','=',f"{sale.name}/{purchase_order.name}")])
-                    mo.notes = notes
-                    if not(mo.date_deadline):
-                        mo.date_deadline = self.date_order
-                        
+                    mos = self.sudo().env['mrp.production'].search([('origin','=',f"{sale.name}/{purchase_order.name}")])
+                    for mo in mos:
+                        mo.notes = notes
+                        if not(mo.date_deadline):
+                            mo.date_deadline = self.date_order
                 self.add_delivery(purchase_order)
+                
+            
+        else:
+            mos = self.sudo().env['mrp.production'].search([('origin','=',f"{self.name}")]) or \
+                    self.sudo().env['mrp.production'].search([('origin','=',f"{self.name}/{self.client_order_ref}")])
+            for mo in mos:
+                if not(mo.date_deadline):
+                    mo.date_deadline = self.date_order
+                    
+                
 
         #mentors end
         return True
