@@ -1,6 +1,6 @@
- -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
- from odoo import models, fields, api
+from odoo import models, fields, api
 
 
 # class duplicate_fields(models.Model):
@@ -18,8 +18,6 @@
 #             record.value2 = float(record.value) / 100
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    
-    _name='amount_total'
-    
+        
     name=fields.Char('Name')
         
