@@ -20,7 +20,7 @@
     'version': '13.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','so_po_advance_payment_app','account'],
+    'depends': ['base','stock','sale','so_po_advance_payment_app','account'],
 
     # always loaded
     'data': [
