@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
@@ -28,6 +28,8 @@
         'views/views.xml',
         'views/templates.xml',
     ],
-    'installable': True,
-    'application': True,
+    # only loaded in demonstration mode
+    'demo': [
+        'demo/demo.xml',
+    ],
 }
