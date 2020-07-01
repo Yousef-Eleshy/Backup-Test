@@ -8,7 +8,7 @@
            <field name="model">sale.order</field>
            <field name="inherit_id" ref="so_po_advance_payment_app.view_sale_order_inherit"/>
            <field name="arch" type="xml">
-                <xpath expr="//header/button[@name='action_print_without_payment']" position="attributes">
+                <xpath expr="//header/button[@name='set_sale_advance_payment']" position="attributes">
                    <attribute name="attrs"> {'invisible': [('state', 'not in', ['draft','sent','sale'])]} </attribute>
                </xpath>
            </field>
