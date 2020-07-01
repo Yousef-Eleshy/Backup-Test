@@ -11,10 +11,9 @@
                             id="action_view_delivered_per_line"
                             name="action_view_delivered_per_line"
                             string="Delivery History"
-                            style="color:green;"
+                            style="color:green"
                             icon="fa-truck-moving"/>
                 </xpath>
-
             </field>
         </record>
   </data>
