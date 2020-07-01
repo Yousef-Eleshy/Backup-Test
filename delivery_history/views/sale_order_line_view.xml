@@ -8,16 +8,16 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='line_delivery_date']" position="after">
                     <button type="object"
+                            id="action_view_delivered_per_line"
                             name="action_view_delivered_per_line"
-                            class="oe_stat_button btn-success"
                             string="Delivery History"
                             style="color:green;"
-                            icon="fa-truck-moving"
-                            attrs="{'invisible': [('line_delivery_date', '=', False)]}">
-                    </button>
+                            icon="fa-truck-moving"/>
                 </xpath>
 
             </field>
         </record>
   </data>
 </odoo>
+
+<!--                             attrs="{'invisible': [('line_delivery_date', '=', False)]}" -->
