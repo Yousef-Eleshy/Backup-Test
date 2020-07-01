@@ -1,22 +1,29 @@
 <odoo>
   <data>
-      <!-- Sale Order Line -->
-      <record id="view_order_line_tree_inherit_button_delivery" model="ir.ui.view">
-            <field name="name">sale.order.line.tree.inherit.button.delivery</field>
-            <field name="model">sale.order.line</field>
-            <field name="inherit_id" ref="egymentors_purchase_fx.view_order_line_tree_inherit"/>
+      <!-- Sale Order Line in Sale order-->
+      <record id="view_order_form_inherit_button_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.button.delivery</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="egymentors_purchase_fx.view_order_form_inherit"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='line_delivery_date']" position="after">
-                    <button type="object"
-                            name="action_view_delivered_per_line"
-                            string="Delivery History"
-                            style="color:green"
+                <xpath expr="//field[@name='order_line']//tree/field[@name='line_delivery_date']" position="after">
+                    <button name="%(action_view_delivered_per_line)d"
+                            icon="fa-truck"
                             attrs="{'invisible': [('line_delivery_date', '=', False)]}"
-                            icon="fa-truck-moving"/>
+                            style="color:green"
+                            type="action"/>
                 </xpath>
             </field>
         </record>
   </data>
 </odoo>
 
-<!--                             attrs="{'invisible': [('line_delivery_date', '=', False)]}" -->
+<!--                             attrs="{'invisible': [('line_delivery_date', '=', False)]}" 
+                            icon="fa-truck-moving"/>
+                    <button type="object"
+                            name="action_view_delivered_per_line"
+                            string="Delivery History"
+                            style="color:green"/>
+                            icon="fa-shopping-cart"
+
+-->
