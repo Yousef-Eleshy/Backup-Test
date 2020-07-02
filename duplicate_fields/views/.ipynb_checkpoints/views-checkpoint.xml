@@ -1,15 +1,63 @@
 <odoo>
   <data>
-    <record id="sale_order_inherit12" model="ir.ui.view">
-        <field name="name">sale.order.inherit12</field>
+    <record id="sale_view_order_form" model="ir.ui.view">
+        <field name="name">sale.view.order.form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <form>
-                <field name="name"/>
-            </form>
+          <xpath expr="//form/sheet/div/button[@name='action_view_invoice']" position="after">
+            <data>
+                <div name="button_box" position="inside" style='display:inline-block'>
+                    <button class="oe_stat_button" icon="fa-dollar">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" widget="statinfo">
+                                <field name="amount_total" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                     <span class="o_stat_text">Total</span>
+                </div>
+                    </button>
+                </div>
+            </data> 
+              <data>
+                <div name="button_box" position="inside" style='display:inline-block'>
+                    <button class="oe_stat_button" icon="fa-dollar">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" widget="statinfo">
+                                <field name="advanced_amounted_y" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                     <span class="o_stat_text">advance amount</span>
+                </div>
+                    </button>
+                </div>
+            </data>
+              <data>
+                <div name="button_box" position="inside" style='display:inline-block'>
+                    <button class="oe_stat_button" icon="fa-dollar">
+                        <div class="o_field_widget o_stat_info">
+                            <span  widget="statinfo" >
+                                <field name="due_amount" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                     <span class="o_stat_text">due amount</span>
+                </div>
+                    </button>
+                </div>
+            </data> 
+              <data>
+                <div name="button_box" position="inside" style='display:inline-block'>
+                    <button class="oe_stat_button" icon="fa-dollar"
+                            attrs="{'invisible':[('return_pay', '=', 'amount_untaxed')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" widget="statinfo">
+                                <field name="return_pay" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                     <span class="o_stat_text">return</span>
+                </div>
+                    </button>
+                </div>
+            </data> 
+            </xpath>   
         </field>
     </record>
-
   </data>
 </odoo>
+
