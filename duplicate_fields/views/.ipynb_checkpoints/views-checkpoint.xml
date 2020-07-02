@@ -25,11 +25,23 @@
                             <span class="o_stat_value" widget="statinfo">
                                 <field name="advanced_amounted_y" widget="statinfo" nolabel="1" class="mr4"/>
                             </span>
-                     <span class="o_stat_text">advance amount</span>
+                     <span class="o_stat_text">Payment</span>
                 </div>
                     </button>
                 </div>
             </data>
+            <data>
+                <div name="button_box" position="inside" style='display:inline-block'>
+                    <button class="oe_stat_button" icon="fa-dollar"> 
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" widget="statinfo">
+                                <field name="return_pay" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                     <span class="o_stat_text">Return</span>
+                </div>
+                    </button>
+                </div>
+            </data> 
               <data>
                 <div name="button_box" position="inside" style='display:inline-block'>
                     <button class="oe_stat_button" icon="fa-dollar">
@@ -37,27 +49,16 @@
                             <span  widget="statinfo" >
                                 <field name="due_amount" widget="statinfo" nolabel="1" class="mr4"/>
                             </span>
-                     <span class="o_stat_text">due amount</span>
+                     <span class="o_stat_text">Due</span>
                 </div>
                     </button>
                 </div>
             </data> 
-              <data>
-                <div name="button_box" position="inside" style='display:inline-block'>
-                    <button class="oe_stat_button" icon="fa-dollar"
-                            attrs="{'invisible':[('return_pay', '=', 'amount_untaxed')]}">
-                        <div class="o_field_widget o_stat_info">
-                            <span class="o_stat_value" widget="statinfo">
-                                <field name="return_pay" widget="statinfo" nolabel="1" class="mr4"/>
-                            </span>
-                     <span class="o_stat_text">return</span>
-                </div>
-                    </button>
-                </div>
-            </data> 
+
             </xpath>   
         </field>
     </record>
   </data>
 </odoo>
 
+<!-- attrs="{'invisible':[('line_status', '!=', 'Closed')]}" -->

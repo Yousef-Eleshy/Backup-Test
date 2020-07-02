@@ -24,10 +24,10 @@ class SaleOrder(models.Model):
     
     due_amount = fields.Float(compute='_compute_amount_total_due', store = True)
     
-    @api.depends('advanced_amounted','amount_total')
+    @api.depends('advanced_amounted','amount_total','return_pay')
     def _compute_amount_total_due(self):
         for record in self:
-            record.due_amount = record.amount_total - record.advanced_amounted
+            record.due_amount = (record.amount_total - record.advanced_amounted_y) - record.return_pay
             
     
     return_pay = fields.Float(compute='_return_pay', store = True)
@@ -37,7 +37,7 @@ class SaleOrder(models.Model):
         delivery_line_t = 0
         for record in self:
             for line in record.order_line:
-                if line.qty_delivered:
+                if line.line_status == "closed":
                     delivery_line = (line.product_uom_qty -line.qty_delivered) * line.price_unit
                     delivery_line_t = delivery_line_t + delivery_line
             record.return_pay = delivery_line_t
