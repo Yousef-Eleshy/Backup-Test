@@ -7,11 +7,11 @@
             <field name="inherit_id" ref="egymentors_purchase_fx.view_order_form_inherit"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']//tree/field[@name='line_delivery_date']" position="after">
-                    <button name="%(action_view_delivered_per_line)d"
+                    <button name="action_view_history_delivery"
                             icon="fa-truck"
                             attrs="{'invisible': [('line_delivery_date', '=', False)]}"
                             style="color:green"
-                            type="action"/>
+                            type="object"/>
                 </xpath>
             </field>
         </record>

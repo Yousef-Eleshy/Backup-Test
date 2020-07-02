@@ -8,9 +8,8 @@ class SaleDeliveryDateHistory(models.Model):
     _name = "sale.delivery.date.history"
     
     
-#     sale_order_line_id = fields.One2many('sale.order.line')
-#     delivery_date = fields.Date('Delivery Date')
-#     delivery_date = fields.Date('Editing Date')
+    sale_order_line_ids = fields.Many2one('sale.order.line', string='Sale Order Lines')
+    delivery_date = fields.Date('Delivery Date')
+    editing_date = fields.Date('Editing Date')
     
-#     def action_view_delivered_per_line(self):
-#         pass
+    
