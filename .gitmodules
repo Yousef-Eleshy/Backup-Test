@@ -1,0 +1,4 @@
+[submodule "texmar0807"]
+	path = texmar0807
+	url = git@github.com:dinamohammed/texmartest6.git
+	branch = DB2506
