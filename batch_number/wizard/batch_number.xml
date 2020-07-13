@@ -1,0 +1,12 @@
+<odoo>
+    <record id="batch_number_mrp_wizard" model="ir.ui.view">
+        <field name="name">batch.number.mrp.wizard</field>
+        <field name="model">mrp.product.produce</field>
+        <field name="inherit_id" ref="mrp.view_mrp_product_produce_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group/group/field[@name='product_id']" position="after">
+                <field name='batch_number'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
