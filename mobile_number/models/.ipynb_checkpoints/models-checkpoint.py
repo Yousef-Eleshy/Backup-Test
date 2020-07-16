@@ -30,4 +30,4 @@ class Partner(models.Model):
 #         for partner in self:
 #             if partner.mobile and self.env['res.partner'].search_count([('mobille', '=', partner.mobile)]) > 1:
 #                 raise ValidationError(_("This number is used change it"))
-#.
+#..
