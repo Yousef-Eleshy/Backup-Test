@@ -1,0 +1,43 @@
+<odoo>
+  <data>
+      <record id="view_delivered_per_line" model="ir.ui.view">
+            <field name="name">Delivery Date History</field>
+            <field name="model">sale.delivery.date.history</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Date Change History" create="false">
+                    <field name = "sale_order_line_ids"/>
+                    <field name = "delivery_date" />
+                    <field name = "editing_date" />
+                </tree>
+            </field>
+        </record>
+      <!--
+      <record id="view_delivered_per_line_search" model="ir.ui.view">
+        <field name="name">Delivery Date History Search</field>
+        <field name="model">sale.delivery.date.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name = "sale_order_line_ids"/>
+                 <filter string="Sale Order Line" name="sol_related"
+                            domain="[('sale_order_line_ids', '=', 'sale_order_line_ids.id')]"/>
+                <filter string="Order" name="sol_related" domain="[]" context="{'group_by':'sale_order_line_ids'}"/>
+            </search>
+        </field>
+    </record>
+      -->
+      
+      <record id="action_view_delivered_per_line" model="ir.actions.act_window">
+          <field name="name">Delivery Date Change History</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">sale.delivery.date.history</field>
+          <field name="view_mode">tree</field>
+          <field name="target">new</field>
+<!--           <field name="context">{'search_default_sol_related': 1}</field> -->
+            <!-- TODO: check if we need this -->
+<!--             <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="binding_view_types">list</field> -->
+        </record>
+      
+      
+  </data>
+</odoo>
