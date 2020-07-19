@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+   <record id="adding_forcast_qty" model="ir.ui.view">
+            <field name="name">adding.forcast.qty</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position='after'>
+                      <field name="virtual_available" />
+                  </xpath>
+            </field>
+      </record>
+  </data>
+</odoo>
