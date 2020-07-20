@@ -1,7 +1,5 @@
 <odoo>
     <data>
-        <record id="base.stock_quant_rule" model="ir.rule">
-            <field name="domain_force">[]</field>
-        </record>
+        <delete id="stock.stock_quant_rule" model="ir.rule"/> 
     </data>
 </odoo>
