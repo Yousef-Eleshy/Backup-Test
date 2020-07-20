@@ -20,26 +20,19 @@ class ForcastQty(models.Model):
             qty += batch.lot_id.product_qty 
         self.product_uom_qty = qty
 
-        
-class StockQuant(models.Model):
-    _inherit = 'stock.quant'
-    _rec_name = 'name'
     
-    name = fields.Char(compute='_compute_name')
-    batch_number = fields.Selection([
-        ('one', 'batch number 1'), ('two', 'batch number 2'),('three', 'batch number 3'), ('four', 'batch number 4'),
-        ('five', 'batch number 5'), ('six', 'batch number 6'),
-        ('seven', 'batch number 7'), ('eight', 'batch number 8'),('nine', 'batch number 9'), ('ten', 'batch number 10')
-    ], string="Batch Number",related='lot_id.batch_number')
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
     
-    @api.depends('lot_id','batch_number','inventory_quantity')
-    def _compute_name(self):
+    def action_confirm(self):
         for rec in self:
-            lot = rec.lot_id.name or ''
-            if rec.batch_number:  
-                batch = f'Batch {rec.batch_number}'
-            else:
-                batch = ''
-            qty = rec.lot_id.product_qty 
+            lines = rec.order_line
+            for line in lines:
+                batches = line.batch
+                for batch in batches:
+                    batch.write({'state':'reserved'})
+        
+        
+        return super(SaleOrderLine, self)
 
-            rec.name = f'{batch} || {lot} || {qty}' 
+        

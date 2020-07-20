@@ -9,7 +9,6 @@ import operator as py_operator
 
 class ForcastQty(models.Model):
     _inherit = 'product.product'
-    _description = 'task2.task2'
 
     def _compute_quantities_dict(self, lot_id, owner_id, package_id, from_date=False, to_date=False):
         domain_quant_loc, domain_move_in_loc, domain_move_out_loc = self._get_domain_locations()
@@ -108,8 +107,4 @@ class ForcastQty(models.Model):
 
         return res
     
-class ForcastQty(models.Model):
-    _inherit = 'sale.order.line'
-    
-    virtual_available = fields.Float(related='product_id.virtual_available', readonly=True,string='Available Quantity')
 
