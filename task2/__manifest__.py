@@ -25,7 +25,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/multy_company_security.xml',
         'views/sale_order_line.xml',
     ],
     # only loaded in demonstration mode

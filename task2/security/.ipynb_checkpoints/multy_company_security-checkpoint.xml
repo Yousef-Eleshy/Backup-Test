@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="base.stock_quant_rule" model="ir.rule">
+            <field name="domain_force">[]</field>
+        </record>
+    </data>
+</odoo>
