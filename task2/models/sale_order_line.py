@@ -13,11 +13,11 @@ class ForcastQty(models.Model):
     virtual_available = fields.Float(related='product_id.virtual_available', readonly=True,string='Available Quantity')
     batch = fields.Many2many('stock.quant',string='Batch')
     
-class ForcastQty(models.Model):
+class StockQuant(models.Model):
     _inherit = 'stock.quant'
+    name = fields.Char(default='Hatem')
     _rec_name = 'name'
     
-    name = fields.Char(default='Hatem')
     batch_number = fields.Selection([
         ('one', 'batch number 1'), ('two', 'batch number 2'),('three', 'batch number 3'), ('four', 'batch number 4'),
         ('five', 'batch number 5'), ('six', 'batch number 6'),
