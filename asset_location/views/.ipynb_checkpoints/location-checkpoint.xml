@@ -30,23 +30,16 @@
             </field>
         </record>
         
-        <record id="open_module_tree_location" model="ir.actions.act_window">
-            <field name="name">Asset Locations</field>
-            <field name="res_model">asset.location</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p class="o_view_nocontent_smiling_face">
-                Create a new Asset Location
-              </p><p>
-                Asset locations are used to manage the locations of your assets
-              </p>
-            </field>
+        
+        <record id="action_asset_location" model="ir.actions.client">
+            <field name="name">Assets Location</field>
+            <field name="tag">asset_location</field>
+            <field name="context" eval="{'model': 'asset.location'}"/>
         </record>
         
         <menuitem
                 id="menu_asset_location_tree" name="Assets Location"
-                action="open_module_tree_location"
-                parent="account.account_management_menu"
-                sequence="7"/>
+                parent="account.account_account_menu"
+                action="action_asset_location"/>
     </data>
 </odoo>
