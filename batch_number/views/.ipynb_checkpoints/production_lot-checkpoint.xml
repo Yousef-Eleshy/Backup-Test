@@ -1,0 +1,12 @@
+<odoo>
+    <record id="batch_number_lot" model="ir.ui.view">
+        <field name="name">batch.number.lot</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+        <field name="ref" position='after'>
+            <field name='batch_number'/>
+        </field>
+        </field>
+    </record>
+</odoo>

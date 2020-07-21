@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <!--
+        this xml for dsiplay button Advance Payment in all states 
+        -->
+       <record id="view_advance_form_inherit_button" model="ir.ui.view">
+           <field name="name">advance.form.inherit.button</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="so_po_advance_payment_app.view_sale_order_inherit"/>
+           <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='set_sale_advance_payment']" position="attributes">
+                   <attribute name="attrs"> {'invisible': [('state', 'not in', ['draft','sent','sale'])]} </attribute>
+               </xpath>
+           </field>
+       </record>
+    </data>
+</odoo>

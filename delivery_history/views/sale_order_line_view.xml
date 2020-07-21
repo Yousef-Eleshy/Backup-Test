@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+      <!-- Sale Order Line in Sale order-->
+      <record id="view_order_form_inherit_button_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.button.delivery</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="egymentors_purchase_fx.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']//tree/field[@name='line_delivery_date']" position="after">
+                    <button name="action_view_history_delivery"
+                            icon="fa-truck"
+                            attrs="{'invisible': [('line_delivery_date', '=', False)]}"
+                            style="color:green"
+                            type="object"/>
+                </xpath>
+            </field>
+        </record>
+  </data>
+</odoo>
+
+<!--                             attrs="{'invisible': [('line_delivery_date', '=', False)]}" 
+                            icon="fa-truck-moving"/>
+                    <button type="object"
+                            name="action_view_delivered_per_line"
+                            string="Delivery History"
+                            style="color:green"/>
+                            icon="fa-shopping-cart"
+
+-->

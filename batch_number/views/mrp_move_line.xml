@@ -1,0 +1,13 @@
+<odoo>
+    <record id="batch_number_mrp" model="ir.ui.view">
+        <field name="name">batch.number.mrp</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath 
+            expr="//form/sheet/notebook/page/field[@name='finished_move_line_ids']/tree"                             position="inside">
+                <field name='batch_number'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

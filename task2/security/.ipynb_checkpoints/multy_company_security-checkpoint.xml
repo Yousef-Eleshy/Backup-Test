@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <delete id="stock.stock_quant_rule" model="ir.rule"/> 
+    </data>
+</odoo>
