@@ -1,6 +1,6 @@
 
-[submodule "texmar2107_2"]
-	path = texmar2107_2
+[submodule "texmar2107_3"]
+	path = texmar2107_3
 
 	url = git@github.com:dinamohammed/texmartest6.git
 	branch = DB2506
