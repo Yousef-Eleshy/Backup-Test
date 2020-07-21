@@ -6,8 +6,8 @@ from odoo.exceptions import ValidationError, RedirectWarning, UserError
 class Mo(models.Model):
     _inherit = 'mrp.production'
     
-    date_deadline = fields.Date(string='Deadline',store=True,readonly=True,related='sale_line_id.line_delivery_date')
-    date_planned_finished = fields.Date(string='Planned EndDate',store=True,readonly=True,related='sale_line_id.line_delivery_date')
+    date_deadline = fields.Datetime(string='Deadline',store=True,readonly=True,related='sale_line_id.line_delivery_date')
+    
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -17,7 +17,6 @@ class SaleOrder(models.Model):
             raise UserError(_(
                 'It is not allowed to confirm an order in the following states: %s'
             ) % (', '.join(self._get_forbidden_state_confirm())))
-
         for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
             order.message_subscribe([order.partner_id.id])
         self.write({
@@ -31,6 +30,7 @@ class SaleOrder(models.Model):
         notes = self.note
 #        # adding customer name and phone and terms to purchase from sales
         purchase_orders = self.sudo().env['purchase.order'].search([('origin','=',self.name)])
+        
         if purchase_orders:
             for purchase_order in purchase_orders:
                 purchase_order.customer_name = self.partner_id['name']
@@ -49,7 +49,7 @@ class SaleOrder(models.Model):
                     for delivery in deliveries:
                         delivery.branch_customer_name = self.partner_id['name']
                         delivery.branch_customer_phone = self.partner_id['mobile']
-#           adding terms to mo
+#           adding terms and deadline date to mo 
                     mos = self.sudo().env['mrp.production'].search([('origin','=',f"{sale.name}/{purchase_order.name}")])
                     for mo in mos:
                         mo.notes = notes
@@ -73,27 +73,7 @@ class SaleOrder(models.Model):
     
     
 
-# class SaleOrderLine(models.Model):
-#     _inherit = 'sale.order.line'
-
-#     def write(self, vals):
-#             self.add_delivery_date()
-#             """
-#             Change Status Of SO
-#             :param vals:
-#             :return:
-#             """
-#             super(SaleOrderLineInherit, self).write(vals)
-#             if vals.get('line_status'):
-#                 # Check Other Lines:
-#                 for line in self:
-#                     if line.order_id:
-#                         if all(line_status == 'closed' for line_status
-#                                 in line.order_id.order_line.mapped('line_status')):
-#                             status = 'closed'
-#                         else:
-#                             status = 'open'
-#                         line.order_id.write({'order_status': status})
-#                 return True
-#         def add_delivery_date(self):
-#             mo = self.env['mrp.production'].search([('')])
+class SaleOrderLineInherit(models.Model):
+	_inherit = 'sale.order.line'
+    
+	line_delivery_date = fields.Datetime("Delivery Date")

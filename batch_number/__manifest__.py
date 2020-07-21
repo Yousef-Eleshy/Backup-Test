@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Delivery Date",
+    'name': "Batch Number",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-            module to sync manficture dead line with product line delivery date
+        Long description of module's purpose
     """,
 
-    'author': "Egymentors",
+    'author': "egymentors",
     'website': "http://www.egymentors.com",
 
     # Categories can be used to filter modules in modules listing
@@ -18,10 +18,15 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
-    'data': [
-        'views/mrp.xml',
-    ],
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','mrp','egymentors_purchase_fx','egymentors_product_code'],
+    'depends': ['base','mrp'],
+
+    # always loaded
+    'data': [
+        # 'security/ir.model.access.csv',
+        'views/mrp_move_line.xml',
+        'views/production_lot.xml',
+        'wizard/batch_number.xml'
+    ],
 }

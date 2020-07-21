@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Delivery Date",
+    'name': "Asset Location",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Create and Select Asset Locations""",
 
     'description': """
-            module to sync manficture dead line with product line delivery date
+        Create and Select Asset Locations
     """,
 
     'author': "Egymentors",
@@ -18,10 +17,15 @@
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
-    'data': [
-        'views/mrp.xml',
-    ],
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','mrp','egymentors_purchase_fx','egymentors_product_code'],
+    'depends': ['base', 'account', 'account_accountant', 'account_asset'],
+
+    # always loaded
+    'data': [
+        'security/ir.model.access.csv',
+        'views/location.xml',
+        'views/asset_view.xml',
+    ],
+
 }
