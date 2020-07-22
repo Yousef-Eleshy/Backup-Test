@@ -11,5 +11,3 @@ class StockMoveLine(models.Model):
         ('seven', 'batch number 7'), ('eight', 'batch number 8'),('nine', 'batch number 9'), ('ten', 'batch number 10')
     ], string="Batch Number")
     
-  
-
