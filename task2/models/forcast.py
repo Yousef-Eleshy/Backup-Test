@@ -107,4 +107,5 @@ class ForcastQty(models.Model):
 
         return res
     
+    
 
