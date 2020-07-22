@@ -13,3 +13,5 @@ class StockMoveLine(models.Model):
     
 
     
+
+    
