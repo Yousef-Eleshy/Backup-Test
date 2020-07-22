@@ -12,3 +12,4 @@ class StockMoveLine(models.Model):
     ], string="Batch Number")
     
   
+
