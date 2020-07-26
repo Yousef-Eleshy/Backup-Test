@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.exceptions import Warning
 
 class Partner(models.Model):
     _inherit = 'res.partner'
@@ -26,8 +27,14 @@ class Partner(models.Model):
                 raise ValidationError("WARNING: Mobile Numbers %s , Should only contain Numbers" % (self.mobile))
     
     # Make sure the Mobile Number is Unique
-    _sql_constraints = [
-                     ('mobile', 
-                      'unique(mobile)',
-                      'WARNING: Another Contact with this Mobile Number Already Exists')
-    ]
+#     _sql_constraints = [
+#                      ('mobile', 
+#                       'unique(mobile)',
+#                       'WARNING: Another Contact with this Mobile Number Already Exists')
+#     ]
+    
+    @api.constrains('mobile')
+    def mobile_unique_constrain(self):
+        for partner in self:
+            if partner.ref and self.env['res.partner'].search_count([('mobile', '=', partner.mobile)]) > 1:
+                raise Warning(_("WARNING: Another Contact with this Mobile Number Already Exists"))
