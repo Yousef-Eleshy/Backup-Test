@@ -1,0 +1,13 @@
+<odoo>
+    <record id="company_lat_long" model="ir.ui.view">
+        <field name="name">compnay.lat.long</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//div[@class='o_address_format']" position='after'>
+            <field name='lat' />
+            <field name='long'/>
+        </xpath>
+        </field>
+    </record>
+</odoo>
