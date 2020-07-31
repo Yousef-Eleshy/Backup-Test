@@ -25,6 +25,8 @@
     # always loaded
     'data': [
         'views/company_location.xml',
+        'security/group.xml',
+        'security/ir.model.access.csv'
     ],
     # only loaded in demonstration mode
     'installable': True,
