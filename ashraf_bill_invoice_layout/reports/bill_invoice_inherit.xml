@@ -2,14 +2,12 @@
 <odoo>
     <template id="bill_invoice_layout_inherit" inherit_id="egymentors_accounting_enhancement.vendor_bill_layout">
         <xpath expr="//div[1]/div/div" position="replace">
-           <div t-attf-class="header o_company_#{company.id}_layout">
-            <div class="o_boxed_header">
                 <div class="row mb8">
                     <div class="col-6">
                         <div class="row">
                             <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
                         </div>
-                        <div class="row" style="margin-top:30px;" >
+                        <div class="row" style="margin-top:5px;" >
                             <h4 class="mt0" t-field="o.company_id.report_header"/>
                             <div name="company_address" class="mb4">
                                 <span class="company_address" t-field="o.company_id.partner_id"
@@ -18,9 +16,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
         </xpath> 
      </template>  
 
@@ -31,7 +26,7 @@
         </xpath>  
        
          <xpath expr="//div[4]/table/thead/tr/td[6]" position="after">
-         <td style="border-right: 2px solid black;text-align:center;">الضريبة</td>  
+         <td style="border-right: 2px solid black;text-align:center;">الإجمالى بعد الضريبه </td>  
         </xpath>  
        
         <xpath expr="//div[4]/table/tbody/t/tr/td[1]" position="after">
@@ -39,7 +34,7 @@
         </xpath>
                
        <xpath expr="//div[4]/table/tbody/t/tr/td[6]" position="after">
-          <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.tax_ids.name"/></td> 
+          <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.total_with_tax"/></td> 
         </xpath>
        
        <xpath expr="//div[4]/table/tbody/tr/td[2]" position="after">
@@ -49,7 +44,7 @@
        
     
         <xpath expr="//div[5]/table/tbody/t/tr/td[3]" position="replace">
-        <t t-set="pre" t-value="'{:.4f}'.format(percentage)"/>
+        <t t-set="pre" t-value="'{:.2f}'.format(percentage)"/>
         <td style="border-right: 2px solid black;text-align:center;"><span t-esc="pre"/></td>
         </xpath>
        
