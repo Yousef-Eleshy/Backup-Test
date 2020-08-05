@@ -116,7 +116,7 @@
                         <div class="row">
                             <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
                         </div>
-                        <div class="row" style="margin-top:30px;" >
+                        <div class="row" style="margin-top:5px;" >
                             <h4 class="mt0" t-field="o.company_id.report_header"/>
                             <div name="company_address" class="mb4">
                                 <span class="company_address" t-field="o.company_id.partner_id"
