@@ -7,7 +7,7 @@ from . import controllers
 class reporting(controllers.Restapi): 
     
      @http.route('/web/session/sales_home',type='json',auth='none')
-     def sales_home(self,user_id,base_location=None):
+     def sales_home(self,base_location=None):
         result = []
         dev_token = request.httprequest.headers['DevToken']
         user_token = request.httprequest.headers['UserToken'] 
@@ -19,7 +19,7 @@ class reporting(controllers.Restapi):
             else:
                 user_info = self.authrize_user(user_token)
                 request.session.authenticate(self.db,user_info['login'],user_info['password'])
-                allowed_companies = self.prepare_allowed_companies(user_id)
+                allowed_companies = self.prepare_allowed_companies(user_info['login'])
                 sales = request.env['sale.order'].search([('company_id','in',allowed_companies)])
 
                 #dates
@@ -34,7 +34,8 @@ class reporting(controllers.Restapi):
                 sales_yesterday_sum = self.get_total_sales(sales_yesterday)
 
                 # calculating the percentage
-                perc = self.get_percentage(sales_yesterday_sum,sales_today_sum)
+                perc = self.get_percentage(sales_yesterday_sum,sales_today_sum) if sales_today_sum > 1 else -100 #abbas
+                
                 return {
                     'today_sales_amount':sales_today_sum,
                     'today_sales_percentage':float("{0:.1f}".format(perc)),
@@ -48,7 +49,6 @@ class reporting(controllers.Restapi):
      @http.route('/web/session/sales_dashboard',type='json',auth='none')
      def sales_dashboard(self,user_id,base_location=None):
         result = []
-        allowed_companies = self.prepare_allowed_companies(user_id)
         dev_token = request.httprequest.headers['DevToken']
         user_token = request.httprequest.headers['UserToken'] 
         try:
@@ -59,6 +59,7 @@ class reporting(controllers.Restapi):
             else:
                 user_info = self.authrize_user(user_token)
                 request.session.authenticate(self.db,user_info['login'],user_info['password'])
+                allowed_companies = self.prepare_allowed_companies(user_info['login'])
                 sales = request.env['sale.order'].search([('company_id','in',allowed_companies)])
 
                 #dates
@@ -68,7 +69,7 @@ class reporting(controllers.Restapi):
                 #filtering sale depending on date
                 sales_today = [sale for sale in sales if sale.date_order.day == day and sale.date_order.month == month and sale.date_order.year == year]                                                        
                 sales_yesterday = [sale for sale in sales if sale.date_order.day == day - 1 and sale.date_order.month == month and sale.date_order.year == year]                                                          
-                sales_this_month = [sale for sale in sales if sale.date_order.month == month and sale.date_order.year == year]                                                                                                                                                       
+                sales_this_month = [sale for sale in sales if sale.date_order.month == month and sale.date_order.year == year]                                                                                                                                             
                 sales_last_month = [sale for sale in sales if sale.date_order.month == month - 1 and sale.date_order.year == year]                                                                           
 
                 # getting the sum of all sales
@@ -78,8 +79,8 @@ class reporting(controllers.Restapi):
                 sales_last_month_sum = self.get_total_sales(sales_last_month)
 
                 # calculating the percentage
-                daily_perc = self.get_percentage(sales_yesterday_sum,sales_today_sum)
-                monthly_perc = self.get_percentage(sales_last_month_sum,sales_this_month_sum)
+                daily_perc = self.get_percentage(sales_yesterday_sum,sales_today_sum) if sales_today_sum > 1 else -100
+                monthly_perc = self.get_percentage(sales_last_month_sum,sales_this_month_sum) if sales_this_month_sum > 1 else -100
 
                 return {'sales' : [
                             {'period' : 'daily' , 'amount': sales_today_sum , 'percentage' : float("{0:.1f}".format(daily_perc))},

@@ -11,7 +11,7 @@ class Restapi(http.Controller):
     def __init__(self):
         self.secret = 'secret'
         self.algorithm = 'HS256'
-        self.db = 'yousef-eleshy-mentors-devs-restapi-1317643'
+        self.db = 'yousef-eleshy-mentors-devs-restapi-2-1369643'
     
     def authrize_developer(self,token):
         token_record = request.env['restapi.tokens'].sudo().search([('name','=',token)]).name
@@ -35,8 +35,8 @@ class Restapi(http.Controller):
             return False
             
             
-    def prepare_allowed_companies(self,user_id):
-            user = request.env['res.users'].search([('id','=',user_id)])
+    def prepare_allowed_companies(self,login):
+            user  = request.env['res.users'].search([('login','=',login)])
             ids = [company.id for company in user.company_id]
             return ids
     
@@ -48,6 +48,18 @@ class Restapi(http.Controller):
     
     def get_percentage(self,perv_sale,sale):
         return ((sale - perv_sale) / perv_sale) * 100 if perv_sale != 0 else 100
+    
+    def product_info(self,product):
+        image = product.image_1920
+        availability = 'In Stock' if product.virtual_available > 0 else 'Out Of Stock'
+        return {
+            'product_id':product.id,
+            'product_name':product.name,
+            'product_code':product.default_code,
+            'price':product.list_price,
+            'availability':availability,
+            'image':base64.b64decode(image) if image else '',
+            }
         
         
         

@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError,AccessError
 import io
 import base64
 import jwt
+import re
 from . import controllers
 
 class get(controllers.Restapi):
@@ -28,7 +29,7 @@ class get(controllers.Restapi):
                     'stock_availability ':product.virtual_available,
                     'product_id':product.id
                 }
-                return  info
+                return info if product else 'no product found'
         except AccessError:
             return {'error':'You are not allowed to do this'}
         
@@ -73,7 +74,7 @@ class get(controllers.Restapi):
             else:
                 user_info = self.authrize_user(user_token)
                 request.session.authenticate(self.db,user_info['login'],user_info['password'])
-                customers = request.env['res.partner'].search([('customer_rank','=',True)])
+                customers = request.env['res.partner'].search([('customer_rank','=',True),('company_id','=',False)])
                 for customer in customers:
                     vals = {
                         'customer_name ':customer.name,
@@ -83,7 +84,7 @@ class get(controllers.Restapi):
                         'history' : {}
                     }
                     result.append(vals)
-                return result
+                return result if len(result) > 0 else 'no customers found'
         except AccessError:
             return {'error':'You are not allowed to do this'}  
         
@@ -101,7 +102,7 @@ class get(controllers.Restapi):
             else:
                 user_info = self.authrize_user(user_token)
                 request.session.authenticate(self.db,user_info['login'],user_info['password'])
-                products = request.env['product.template'].search([])
+                products = request.env['product.product'].search([('company_id','=',False)])
                 for product in products:
                     image = product.image_1920
                     availability = 'In Stock' if product.virtual_available > 0 else 'Out Of Stock'
@@ -114,6 +115,31 @@ class get(controllers.Restapi):
                         'image':base64.b64decode(image) if image else '',
                     }
                     result.append(vals)
-                return result
+                return result if len(result) > 0 else 'no products found'
+        except AccessError:
+            return {'error':'You are not allowed to do this'}
+     
+     @http.route('/web/session/search_products',type='json',auth='none')
+     def search_products(self,keyword,base_location=None):
+        dev_token = request.httprequest.headers['DevToken']
+        user_token = request.httprequest.headers['UserToken'] 
+        try:
+            if self.authrize_developer(dev_token) == False:
+                return {'error':'developer token expired'}
+            elif not self.authrize_user(user_token):
+                return {'error':'invalid user token'}
+            else:
+                user_info = self.authrize_user(user_token)
+                request.session.authenticate(self.db,user_info['login'],user_info['password'])
+                products = request.env['product.product'].search(['company_id','=',False])
+                result = []
+                for product in products:
+                    search = str(keyword).lower()
+                    code = '' if not product.default_code else product.default_code.lower()
+                    if re.search(search,product.name.lower()) != None or                                                                             re.search(search,code) != None:
+                        result.append(self.product_info(product))
+                return result if len(result) > 0 else 'no product found'
+                    
+                
         except AccessError:
             return {'error':'You are not allowed to do this'}
