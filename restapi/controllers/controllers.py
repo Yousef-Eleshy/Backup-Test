@@ -11,7 +11,7 @@ class Restapi(http.Controller):
     def __init__(self):
         self.secret = 'secret'
         self.algorithm = 'HS256'
-        self.db = 'yousef-eleshy-mentors-devs-restapi-2-1369643'
+        self.db = 'yousef-eleshy-mentors-devs-restapi-2-1369896'
     
     def authrize_developer(self,token):
         token_record = request.env['restapi.tokens'].sudo().search([('name','=',token)]).name

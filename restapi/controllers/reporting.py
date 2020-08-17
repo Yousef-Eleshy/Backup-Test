@@ -6,7 +6,7 @@ import base64
 from . import controllers
 class reporting(controllers.Restapi): 
     
-     @http.route('/web/session/sales_home',type='json',auth='none')
+     @http.route('/sales_home',type='json',auth='none')
      def sales_home(self,base_location=None):
         result = []
         dev_token = request.httprequest.headers['DevToken']
@@ -46,8 +46,8 @@ class reporting(controllers.Restapi):
         
     
     
-     @http.route('/web/session/sales_dashboard',type='json',auth='none')
-     def sales_dashboard(self,user_id,base_location=None):
+     @http.route('/sales_dashboard',type='json',auth='none')
+     def sales_dashboard(self,base_location=None):
         result = []
         dev_token = request.httprequest.headers['DevToken']
         user_token = request.httprequest.headers['UserToken'] 

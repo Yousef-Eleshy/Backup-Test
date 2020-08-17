@@ -6,7 +6,7 @@ import base64
 from . import controllers
 
 class write_update(controllers.Restapi):
-     @http.route('/web/session/edit_customer',type='json',auth='none')
+     @http.route('/edit_customer',type='json',auth='none')
      def edit_customer(self,customer_id,full_name,country_code,mobile,email,base_location=None):
         dev_token = request.httprequest.headers['DevToken']
         user_token = request.httprequest.headers['UserToken'] 
@@ -40,7 +40,7 @@ class write_update(controllers.Restapi):
         except ValidationError as e:
             return {'error':e.name}
      
-     @http.route('/web/session/create_customer',type='json',auth='none')
+     @http.route('/create_customer',type='json',auth='none')
      def create_customer(self,email,full_name,country_code,mobile,base_location=None):
         dev_token = request.httprequest.headers['DevToken']
         user_token = request.httprequest.headers['UserToken'] 
@@ -57,7 +57,6 @@ class write_update(controllers.Restapi):
                     return 'invalid country code'
                 vals = {
                     'name':full_name,
-                    'phone':mobile,
                     'mobile':mobile,
                     'email':email,
                     'country_id':country,
