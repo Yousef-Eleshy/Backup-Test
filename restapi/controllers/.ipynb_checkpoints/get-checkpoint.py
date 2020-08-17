@@ -5,6 +5,7 @@ import io
 import base64
 import jwt
 import re
+from datetime import datetime,timedelta,timezone
 from . import controllers
 
 class get(controllers.Restapi):
@@ -118,6 +119,35 @@ class get(controllers.Restapi):
         except AccessError:
             return {'error':'You are not allowed to do this'}
      
+     @http.route('/new_products',type='json',auth='none')
+     def new_product(self,base_location=None):
+        result = []
+        dev_token = request.httprequest.headers['DevToken']
+        user_token = request.httprequest.headers['UserToken']
+        try:
+            if self.authrize_developer(dev_token) == False:
+                return {'error':'developer token expired'}
+            elif not self.authrize_user(user_token):
+                return {'error':'invalid user token'}
+            else:
+                params = self.get_params(request.httprequest.url)
+                limit = params.get('limit',5)
+                offset = params.get('offset',0)
+                
+                user_info = self.authrize_user(user_token)
+                request.session.authenticate(self.db,user_info['login'],user_info['password'])
+                
+                exp_time = datetime.utcnow() - timedelta(days=30)
+                products = request.env['product.product'].search([('company_id','=',False),('create_date','>',exp_time)],limit=limit,offset=offset)
+                
+                for product in products:
+                    result.append(self.product_info(product))
+                    
+                return result if len(result) > 0 else 'no products found'
+            
+        except AccessError:
+            return {'error':'You are not allowed to do this'}
+     
      @http.route('/search_products',type='json',auth='none')
      def search_products(self,keyword,base_location=None):
         dev_token = request.httprequest.headers['DevToken']
@@ -136,7 +166,7 @@ class get(controllers.Restapi):
                     search = str(keyword).lower()
                     code = '' if not product.default_code else product.default_code.lower()
                     
-                    if re.search(search,product.name.lower()) != None or                                                                                    re.search(search,code) != None:
+                    if re.search(search,product.name.lower()) != None or                                                                                                      re.search(search,code) != None:
                         result.append(self.product_info(product))
                         
                 return result if len(result) > 0 else 'no product found'
