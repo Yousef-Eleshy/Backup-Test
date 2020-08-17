@@ -11,7 +11,7 @@ class Restapi(http.Controller):
     def __init__(self):
         self.secret = 'secret'
         self.algorithm = 'HS256'
-        self.db = 'yousef-eleshy-mentors-devs-restapi-2-1369896'
+        self.db = 'yousef-eleshy-mentors-devs-restapi-2-1371421'
     
     def authrize_developer(self,token):
         token_record = request.env['restapi.tokens'].sudo().search([('name','=',token)]).name
@@ -60,6 +60,16 @@ class Restapi(http.Controller):
             'availability':availability,
             'image':base64.b64decode(image) if image else '',
             }
+    
+    def get_params(self,url):
+        params = url.split('?')
+        params = params[1].split('&')
+        result = {}
+        for param in params:
+            key_value = param.split('=')
+            result[key_value[0].strip()] =  int(key_value[1].strip())
+        return result
+            
         
         
         

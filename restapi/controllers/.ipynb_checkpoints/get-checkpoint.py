@@ -93,22 +93,28 @@ class get(controllers.Restapi):
      def popular_products(self,base_location=None):
         result = []
         dev_token = request.httprequest.headers['DevToken']
-        user_token = request.httprequest.headers['UserToken'] 
+        user_token = request.httprequest.headers['UserToken']
         try:
             if self.authrize_developer(dev_token) == False:
                 return {'error':'developer token expired'}
             elif not self.authrize_user(user_token):
                 return {'error':'invalid user token'}
             else:
+                params = self.get_params(request.httprequest.url)
+                limit = params.get('limit',5)
+                offset = params.get('offset',0)
+                
                 user_info = self.authrize_user(user_token)
                 request.session.authenticate(self.db,user_info['login'],user_info['password'])
-                products = request.env['product.product'].search([('company_id','=',False)])
+                
+                products = request.env['product.product'].search([('company_id','=',False)],limit=limit,offset=offset)
+                
                 for product in products:
                     image = product.image_1920
                     availability = 'In Stock' if product.virtual_available > 0 else 'Out Of Stock'
                     result.append(self.product_info(product))
                     
-                return result if len(result) > 0 else 'no products found'
+                return result if len(result) > 0 else 'no products found'  
         except AccessError:
             return {'error':'You are not allowed to do this'}
      
