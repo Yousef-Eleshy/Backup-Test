@@ -9,79 +9,91 @@
                 <div class="oe_structure"/>
                 
 
-            <div align="center">    
+            <div align="center" style="margin-bottom:50px;">    
             <h2>Project No: <span t-field="o.fx_num_id"/></h2>
             <h3>رقم المشروع</h3>
             </div>
-
-                <div class="row">
-                    <table class="table" style="width:100%;border:2px solid black;border-collapse: collapse;">
-                        <thead style="border: 2px solid black;">
-                            <tr style="border-bottom: 2px solid black;">
-                                <td style="border-right: 2px solid black;text-align:center;"> Supplier Code <br/> كود المورد </td>
-                                <td style="border-right: 2px solid black;text-align:center;"> Offer Number <br/> رقم الفاكس </td>
-                                <td style="border-right: 2px solid black;text-align:center;"> Payment Terms <br/> طريقة الشحن </td>
-                                <td style="border-right: 2px solid black;text-align:center;"> Purchase Person <br/> مندوب المشتريات </td>
-                                <td style="border-right: 2px solid black;text-align:center;"> Currency <br/> العملة </td>
-                                <td style="border-right: 2px solid black;text-align:center;"> Delivery Date <br/> تاريخ التسليم </td>
-                            </tr>
-                        </thead>
-                        <tbody style="border: 2px solid black;">
-                            <tr style="border-bottom: 2px solid black;">
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.partner_id.ref"/></td>
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.fx_num_id and o.fx_num_id.name or ''"/></td>
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.payment_term_id and o.payment_term_id.name or ''"/></td>
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.user_id and o.user_id.name or ''"/></td>
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.currency_id and o.currency_id.name or ''"/></td>
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.date_planned"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                
                 <div class="row">
                     <table class="table" style="width:100%;border-collapse: collapse;">
                         <thead style="border: 2px solid black;">
                             <tr style="border-bottom: 2px solid black;">
-                                <td style="border-right: 2px solid black;text-align:center;">Code <br/> كود </td>
-                                <td style="border-right: 2px solid black;text-align:center;">Item Description <br/> كود الصنف </td>
-                                <td style="border-right: 2px solid black;text-align:center;">Store no <br/> مخزن رقم </td>
-                                <td style="border-right: 2px solid black;text-align:center;">Unit <br/> الوحده </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Item Code Name <br/> كود الصنف </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Price <br/> السعر </td>
                                 <td style="border-right: 2px solid black;text-align:center;">Qty <br/> الكمية </td>
-                                <td style="border-right: 2px solid black;text-align:center;">Price<br/> السعر </td>
-                                <td style="border-right: 2px solid black;text-align:center;">Amount <br/> القيمة </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Total <br/> الاجمالي </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Received QTY <br/> كمية الوارد </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Received Value <br/> قيمة الوارد </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Under Received <br/> تحت التسليم </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Under Received Value <br/> قيمة تحت التسليم </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Invoice NO <br/> رقم الفاتورة </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Qty <br/> الكمية </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Value <br/> القيمة </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Date <br/> التاريخ </td>
+                                <td style="border-right: 2px solid black;text-align:center;">Supplier Name <br/> اسم المورد </td>
                             </tr>
                         </thead>
                         <tbody style="border: 2px solid black;">
                             <t t-set="total_qty" t-value="0"/>
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="border-bottom: 2px solid black;">
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_id.default_code"/></td>
+                                    <!-- Item Code Name -->
                                     <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.name"/></td>
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-field="o.picking_type_id"/></td>
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_uom and line.product_uom.name or ''"/></td>
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty"/></td>
-                                    <t t-set="total_qty" t-value="total_qty + line.product_qty"/>
+                                    
+                                    <!-- Price -->
                                     <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.price_unit"/></td>
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-field="line.price_subtotal"
-                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    
+                                    <!-- Qty -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty"/></td>
+                                    
+                                    <!-- Total -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.price_subtotal"/></td>
+                                    
+                                    <!-- Received QTY -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.qty_received"/></td>
+                                    
+                                    <!-- Received Value -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.qty_received * line.price_unit"/></td>
+                                    
+                                    <!-- Under QTY -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty - line.qty_received"/></td>
+                                    
+                                    <!-- Under Received Value -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty - line.qty_invoiced"/></td>
+                                    <!-- Invoice NO -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.invoice_ids"/></td>
+                                    
+                                    <!-- Qty -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.qty_invoiced"/></td>
+                                    
+                                    <!-- Value -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.price_subtotal"/></td>
+                                    
+                                    <!-- Date -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.date_order"/></td>
+                                    
+                                    <!-- Supplier Name -->
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.partner_id"/></td>
+
                                 </tr>
                             </t>
+                            <tr style="border-bottom: 2px solid black;">
+                                <!-- Total Title -->
+                                <td style="border-right: 2px solid black;text-align:center;"><b>Total: </b></td>
+                                
+                                <!-- Date -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.date_order"/></td>
+                                
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-9">
-<!--                         <p>All item prices included Sales Tax and all other taxes جميع أسعار الأصناف شاملة ضريبة المبيعات و جميع أنواع الضرائب اﻷخري </p>
-                        <p>All delivery notes and invoices shall be marked with the PO no. on delivery يجب وضع رقم أمر التوريد علي كل من اذن الاستلام و الفواتير</p>
-                        <p>All items are under supplier guaranty for any defects جميع البضائع تحت ضمان المورد ضد أي عيوب</p>
-                        <br/>
-                        <t t-if="o.notes">
-                            <h2>Purchase remarks :-</h2>
-                            <div class="row" style="border:2px solid black;">
-                                <p t-field="o.notes" style="margin:10px;"/>
-                            </div>
-                        </t> -->
+
                     </div>
+                    
+                    <!--
                     <div class="col-3">
                         <table class="table">
                             <tbody>
@@ -90,24 +102,13 @@
                                     <td style="text-align:center;"><span t-esc="total_qty"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:right;"><strong>Total</strong></td>
-                                    <td style="text-align:center;"><span t-field="o.amount_untaxed"/></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:right;"><strong>Taxes</strong></td>
-                                    <td style="text-align:center;"><span t-field="o.amount_tax"/></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:right;"><strong>Shipping</strong></td>
-                                    <td style="text-align:center;">0</td>
-                                </tr>
-                                <tr>
                                     <td style="text-align:right;"><strong>Total Due</strong></td>
                                     <td style="text-align:center;"><span t-field="o.amount_total"/></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    -->
                 </div>
                 <div class="oe_structure"/>
             </div>
@@ -144,21 +145,7 @@
                         </div>
                     </div>
                     <div class="col-6 mb4">
-                        <!--
-                        <div class="col-md-12" style="padding-top:20px;padding-bottom:5px;">
-                            <h1 class="col-md-12 text-center">Purchase Order</h1>
-                        </div>
-                        <div class="row">
-                            <h1 class="col-md-12 text-center">أمر شراء</h1>
-                        </div>
-                        <div class="row">
-                            <ul style="list-style:none;margin-left:120px;">
-                                <li>Company Registration no 10346 سجل تجاري رقم</li>
-                                <li>Tax Reg. no 4879/221/102 تسجيل ضرائب عامة رقم</li>
-                                <li>Company Registration no. 100/000/088 تسجيل ضريبة مبيعات رقم</li>
-                            </ul>
-                        </div>
--->
+
                     </div>
                 </div>
             </div>
