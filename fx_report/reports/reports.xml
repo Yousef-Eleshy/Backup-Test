@@ -21,8 +21,8 @@
             id="purchase.action_report_fx"
             model="purchase.order"
             report_type="qweb-pdf"
-            name="purchase.report_fx"
-            file="purchase.report_fx"
+            name="fx_report.report_fx"
+            file="fx_report.report_fx"
             paperformat="fx_report.fx_paperformat"
         />
 
