@@ -34,7 +34,17 @@
                             </tr>
                         </thead>
                         <tbody style="border: 2px solid black;">
-                            <t t-set="total_qty" t-value="0"/>
+                            <!-- Setting Totals -->
+                            <t t-set="total_price" t-value="0.0"/>
+                            <t t-set="total_qty" t-value="0.0"/>
+                            <t t-set="total_total" t-value="0.0"/>
+                            <t t-set="total_received_qty" t-value="0.0"/>
+                            <t t-set="total_received_value" t-value="0.0"/>
+                            <t t-set="total_under_received" t-value="0.0"/>
+                            <t t-set="total_under_received_value" t-value="0.0"/>
+                            <t t-set="total_qty_2" t-value="0.0"/>
+                            <t t-set="total_value" t-value="0.0"/>
+                            
                             <t t-foreach="o.order_line" t-as="line">
                                 <tr style="border-bottom: 2px solid black;">
                                     <!-- Item Code Name -->
@@ -59,9 +69,9 @@
                                     <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty - line.qty_received"/></td>
                                     
                                     <!-- Under Received Value -->
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty - line.qty_invoiced"/></td>
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.product_qty - line.qty_received"/></td>
                                     <!-- Invoice NO -->
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.invoice_ids"/></td>
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.invoice_ids.id"/></td>
                                     
                                     <!-- Qty -->
                                     <td style="border-right: 2px solid black;text-align:center;"><span t-esc="line.qty_invoiced"/></td>
@@ -73,16 +83,81 @@
                                     <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.date_order"/></td>
                                     
                                     <!-- Supplier Name -->
-                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.partner_id"/></td>
+                                    <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.partner_id.name"/></td>
+                                    
+                                    
+                                    <!-- TOTALS -->
+                                    
+                                    <!-- Price Total -->
+                                    <t t-set="total_price" t-value="line.price_unit + total_price"/>
+                                    
+                                    <!-- Qty Total -->
+                                    <t t-set="total_qty" t-value="line.product_qty + total_qty"/>
+                                
+                                    <!-- Total Total -->
+                                    <t t-set="total_total" t-value="line.price_subtotal + total_total"/>
+                                
+                                    <!-- Received Qty Total -->
+                                    <t t-set="total_received_qty" t-value="line.qty_received + total_received_qty"/>
+                                
+                                    <!-- Received Value Total -->
+                                    <t t-set="total_received_value" t-value="(line.qty_received * line.price_unit) + total_received_value"/>
+                                
+                                    <!-- Under Received Total -->
+                                    <t t-set="total_under_received" t-value="(line.product_qty - line.qty_received) + total_under_received"/>
+                                
+                                    <!-- Under Received Value Total -->
+                                    <t t-set="total_under_received_value" t-value="(line.product_qty - line.qty_received) + total_under_received_value"/>
+                                
+                                    <!-- Qty Total -->
+                                    <t t-set="total_qty_2" t-value="line.qty_invoiced + total_qty_2"/>
+                                
+                                    <!-- Value Total -->
+                                    <t t-set="total_value" t-value="line.price_subtotal + total_value"/>
+
 
                                 </tr>
                             </t>
                             <tr style="border-bottom: 2px solid black;">
+                                
                                 <!-- Total Title -->
                                 <td style="border-right: 2px solid black;text-align:center;"><b>Total: </b></td>
                                 
-                                <!-- Date -->
-                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="o.date_order"/></td>
+                                <!-- Price Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_price"/></td>
+                                
+                                <!-- Qty Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_qty"/></td>
+                                
+                                <!-- Total Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_total"/></td>
+                                
+                                <!-- Received Qty Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_received_qty"/></td>
+                                
+                                <!-- Received Value Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_received_value"/></td>
+                                
+                                <!-- Under Received Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_under_received"/></td>
+                                
+                                <!-- Under Received Value Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_under_received_value"/></td>
+                                
+                                <!-- Invoice No Total Placeholder -->
+                                <td style="border-right: 2px solid black;text-align:center;"></td>
+                                
+                                <!-- Qty Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_qty_2"/></td>
+                                
+                                <!-- Value Total -->
+                                <td style="border-right: 2px solid black;text-align:center;"><span t-esc="total_value"/></td>
+                                
+                                <!-- Date Total Placeholder -->
+                                <td style="border-right: 2px solid black;text-align:center;"></td>
+                                
+                                <!-- Supplier Name Total Placeholder -->
+                                <td style="border-right: 2px solid black;text-align:center;"></td>
                                 
                             </tr>
                         </tbody>
