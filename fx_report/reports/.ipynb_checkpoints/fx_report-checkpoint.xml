@@ -7,57 +7,13 @@
             </t>
             <div class="page">
                 <div class="oe_structure"/>
-<!--                 <div class="row">
-                    <div class="row" style="padding-left:60%;">
-                        <ul style="list-style:none;">
-                            <li><strong>Ref No: </strong><span t-field="o.name"/></li>
-                            <li><strong>Date: </strong><span t-field="o.date_order"/></li>
-                        </ul>
-                    </div> 
-                </div>
+                
 
-                 <div class="oe_structure"/>
-
- -->
-            <h2 t-if="o.state == 'draft'">Request for Quotation #<span t-field="o.name"/></h2>
-            <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #<span t-field="o.name"/></h2>
-            <h2 t-if="o.state in ['purchase', 'done']">Purchase Order #<span t-field="o.name"/></h2>
-            <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #<span t-field="o.name"/></h2>
-
-            <div id="informations" class="row mt32 mb32">
-                <div t-if="o.user_id" class="col-3 bm-2">
-                    <strong>Purchase Representative:</strong>
-                    <p t-field="o.user_id" class="m-0"/>
-                </div>
-                <div t-if="o.partner_ref" class="col-3 bm-2">
-                    <strong>Your Order Reference:</strong>
-                    <p t-field="o.partner_ref" class="m-0"/>
-                </div>
-                <div t-if="o.date_order" class="col-3 bm-2">
-                    <strong>Order Date:</strong>
-                    <p t-field="o.date_order" class="m-0"/>
-                </div>
+            <div align="center">    
+            <h2>Project No: <span t-field="o.fx_num_id"/></h2>
+            <h3>رقم المشروع</h3>
             </div>
 
-<!--                 <h2>Supplied Form</h2>
-                <div class="row">
-                    <table class="table text-center" style="width:100%;border: 2px solid black;border-collapse: collapse;">
-                        <tbody style="border: 2px solid black;">
-                            <tr style="border-bottom: 2px solid black;width:50%;">
-                                <td style="border-right: 2px solid black;width:25%;"><span style="margin-left:10px;"> Company شركة :-</span></td>
-                                <td style="border-right: 2px solid black;width:25%;"><span style="margin-left:10px;" t-esc="o.partner_id.name"/></td>
-                                <td rowspan="2" style="border-right: 2px solid black;width:25%;"><span style="margin-left:10px;"> Address العنوان :-</span></td>
-                                <td rowspan="2" style="border-right: 2px solid black;width:25%;"><span class="company_address" t-field="o.partner_id"
-                                                t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}' style="margin-left:10px;"/></td>
-                            </tr>
-                            <tr style="border-top: 2px solid black;width:50%;">
-                                <td style="border-right: 2px solid black;width:25%;"><span style="margin-left:10px;"> Tel &amp; Fax :-</span></td>
-                                <td style="width:25%;"><span style="margin-left:10px;" t-field="o.partner_id.phone" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
-                <h2>Comments</h2>
                 <div class="row">
                     <table class="table" style="width:100%;border:2px solid black;border-collapse: collapse;">
                         <thead style="border: 2px solid black;">
@@ -183,7 +139,7 @@
                             <h4 class="mt0" t-field="o.company_id.report_header"/>
                             <div name="company_address" class="mb4">
                                 <span class="company_address" t-field="o.company_id.partner_id"
-                                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                    t-options='{"widget": "contact", "fields": ["phone", "email"], "no_marker": true}'/>
                             </div>
                         </div>
                     </div>
