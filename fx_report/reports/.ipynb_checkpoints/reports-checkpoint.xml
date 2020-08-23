@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="fx_paperformat" model="report.paperformat">
+            <field name="name">FX Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">45</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">40</field>
+            <field name="dpi">140</field>
+        </record>
+
+
+     <report
+            string="FX Report"
+            id="purchase.action_report_fx"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            name="purchase.report_fx"
+            file="purchase.report_fx"
+            paperformat="fx_report.fx_paperformat"
+        />
+
+    </data>
+</odoo>
